@@ -2,9 +2,281 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik+Mono+One">
+    <title>69 reasons why I love you &lt;3 </title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background-color: #fcefee;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #reason-container {
+            width: 90%;
+            max-width: 700px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #be8c8c;
+            margin-bottom: 20px;
+            font-size: 30px;
+            text-shadow: 0 0 0.5px #ffffff
+        }
+
+        h3 {
+            color: #504747;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        ul {
+            color: #504747;
+        }
+
+        li {
+            font-size: 14px;
+            text-align: left;
+        }
+
+        #reason-text {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #8d7373;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        #countdown {
+            font-size: 15px;
+            color: #777;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        #show-reasons-button {
+            background-color: #bba0a0;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        #reason-list {
+            display: none;
+            list-style-type: decimal;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #image {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            margin: 20px auto;
+        }
+
+        /* Responsive Styles */
+        @media only screen and (max-width: 600px) {
+            #reason-text {
+                font-size: 18px;
+            }
+        }
+    </style>
+    <script type="text/javascript" data-name="TokenSigning" data-by="Web-eID extension" src="chrome-extension://ncibgoaomkmdpilpocfeponihegamlic/token-signing-page-script.js"></script></head>
 <body>
+<div id="reason-container">
+    <h1>69 REASONS WHY I LOVE YOU &lt;3</h1>
+    <img id="image" src="/pildid/1.JPG" alt="Image">
+    <h3>Tänane põhjus: </h3>
+    <div id="reason-text">Mulle meeldib, et sa oled nii avatud. Sa oled avatud uutele mõtetele, tegevustele, teistsugustele inimestele ja arvamustele. </div>
+    <div id="countdown">Next reason in 9 hours and 44 minutes.</div>
+    <button id="show-reasons-button">Eelnevad põhjused</button>
+    <div id="reason-list" style="display: none;"><h3>Eelnevad põhjused:</h3><ul></ul><li>Mulle meeldib, et sa oled nii avatud. Sa oled avatud uutele mõtetele, tegevustele, teistsugustele inimestele ja arvamustele. </li></div>
+</div>
+
+<script>
+    // Replace this array with your list of reasons
+    const reasons = [
+        "Mulle meeldib, et sa oled nii avatud. Sa oled avatud uutele mõtetele, tegevustele, teistsugustele inimestele ja arvamustele. ",
+        "Sinuga ei pea kunagi kartma, kui teen midagi imelikku või teistmoodi. Ma tean, et you always have my back and won't judge.",
+        "Mulle meeldib sa oled väga aktsepteeriv teiste inimestega. Sa võtad head inimesed omaks ka siis, kui neil on kiikse. ",
+        "Sa näed head inimestes, neis, kellest sa oled huvitatud või hoolid. Sa also näed halbasid külgi ja ei karda confrontida neid halbu külgi. ",
+        "Sa oled väga aktsepteeriv iseendaga. See on muljetavaldav. Sa ei karda olla sina ise. Sa oled leppinud, milline sa oled ja milline sa olla soovid. Näiteks sa ei karda olla naiselikum või ühiskonna normidest väljaspool. ",
+        "Mulle meeldib, et sa oled vahepeal veidi out-of-pocket ja pushid piire. Muidugi vahepeal see on väga tüütu ja piinlik, aga enamus kordadel see on huvitav ja lisab elule vürtsi. Jällegi näitab, et sa ei karda olla teistsugune. ",
+        "Mulle meeldib, et sa oled väga puhas ja korralik. See kuidas sa riietud, pesed, lõhnad, ennast hoiad on kõik väga elegantne ja annab sulle sellise clean-look'i.",
+        "Mulle meeldib, et sa hoolid väga palju. Ka väikestest asjadest. Sinu hoolimine tundub lõputu. Ja sa soovid seda ka välja näidata. Sa annad väga palju ja seda on näha. See on tohutult armas ja ma olen väga tänulik.",
+        "Sa oled ratsionaalne. See on ka halb asi sinu puhul. Aga tavaelus ja sotsiaalsetes olukordades töötab see sinu heaks tohutult. Sa oskad ruumi lugeda väga hästi. ",
+        "Sa oled väga rõõmus. Isegi, kui sa ei ole, somehow. Kuigi ma olen näinud sinu depressiivsemat külge, siis enamasti sa ärkad üles rõõmsana ja õnnelikuna.",
+        "Sinus on mingi excitement teha asju ja minna kohtadesse. See on see energia, mida mul tihti ei ole, seega ma olen väga tänulik, et sa oled minu kõrval see hüppav kutsu, kes sind õue surub. ",
+        "Sa oled lihtsameelne ja kindlameelne oma soovides. Sa jätad mulje, nagu sa tead täpselt mida sa tahad. Olgu selleks veinivalik õhtusöögi kõrvale või tuleviku kodu mööbel. See annab kindlustunnet ja tekitab vähem segadust. ",
+        "Sa oled avatud rääkima raskematest teemadest ja sa tahad rääkida probleemidest. Kuigi sa ütled, et sind ei häiri mitte miski minu juures, siis siiski ma olen vähemalt tänulik, et sa julged öelda asju, mis sind häirivad. Vaidlemist ja lohutamist peame me veel mõlemad õppima. Aga vähemalt ma tean alati, et sinuga saab rääkida, ning sa ei ignoreeri probleeme. ",
+        "Sa oled väga naljakas. Ja lisaks sellele sa üleüldiselt tunnetad ja huvitud huumorist. Sinuga on alati lõbus ja sa tood seltskonda väga palju energiat, nalja ja iseloomu. Tihti ma tunnen end uhkena, kui sa kõiki naerma suudad panna :).",
+        "Mulle meeldib, et sa oled väga pereinimene ja armastad lapsi. See on väga suur green flag. ",
+        "Sa oled väga atraktiivne. Nii välimuselt kui ka iseloomult kui ka karismalt. Sinus on mingi teatud sujuvus, mis töötab enamus inimeste peal. Sa also näed väga seksikas ja expensive välja. Isegi kui su juuksed on overgrown as fuck suudad sa olla adorable ja ekstreemselt unconventionally ilus. ",
+        "Sa oled väga passionate. Sa oskad excitementi väga hästi elus hoida. Sinust ei saa kunagi piisavalt. ",
+        "I think it's adorable, et sa kogu aeg krooksutad. Muidugi ma ei arva, et see väga adorable on, et sul mingi acid reflux on. Ikkagi on see krooksutamine minu arust väga nunnu :).",
+        "Ma armastan seda, et sa proovid kogu aeg ennast veel rohkem parandada ja paremaks muutuda. Minu arust sa oled nii palju arenenud juba kasvõi selle aja jooksul, kui me koos oleme olnud. ",
+        "Sa tundud alati valmis ennast parandama. See on tohutult raske asi, mida teha, ja enamus ei suuda selleni jõuda. Ego tuleb kõigile ette. Aga sinu puhul ma näen seda tahet ja see on väga inspireeriv. Ka mulle. Tänu sinule ma tahan ka ise olla parem ja sa juba oled seda suutnud teha nii mitu korda. ",
+        "Mulle väga meeldib, et sa ütled alati välja, kui sa tahad olla little spoon :)). It's so damn cute.",
+        "Sinuga on väga, väga, väga lihtne rääkida. Juba meie esimestest öödest koos oli mul nii lihtne olla sinuga avatud ja aus. ",
+        "Sa oskad päris hästi kuulata. Lausa üllatavalt hästi kuti kohta xd. ",
+        "Sa teed väga hästi süüa ja ma armastan süüa sinu tehtud sööki. Ma arvan kunagi me jõuame sinna, kui me teeme iga õhtu megamega delishus toitu. Sina vähemalt kindlasti jõuad. Arvan sul on talenti selles.",
+        "Sa oled uskumatu peohing. Just selles mõttes, et sa tihtipeale oled täpselt see iseloom, mis hoiab emotsiooni õhus ja pidu käimas. Inimesed koonduvad su ümber ja kuulavad sind. Sa oled tihtipeale see kindel keskkoht, mille poole kõik vaatavad. Ma olen alati väga uhke, kui see juhtub :).",
+        "Su keha on nii ilus omg. Ma ei tee nalja, kui ma ütlen, et sinust võiks skulptuuri teha. Lisaks kehale on sul väga ilusad näojooned - selged ja tugevad, samas pehmed ja kutsuvad. ",
+        "I love your beard :)) Sa oled üks nendest meestest, kes täiega hästi habeme pull-offib. Nagu sa lihtsalt näed nii mehelik ja sexy välja ugh",
+        "Ma näen sinus väga palju loovust. Alustades sellest, et sa oskad saksa keelt ja inglise keelt (keele oskus ja tajumine on tegelikult väga big thing, paljudel seda lihtsalt ei ole). See, et sa oskad väga hästi luua seoseid erinevate teemade ja metafooride vahel. Sa näed maailma väga detailse silmaga ja paned tähele asju, mida teised ei pane. Nii inimestes kui olukordades kui lihtsalt looduses. See, kuidas sa analüüsid filme ja mänge. See, kuidas sa oled huvitatud kultuurist. Lõpetades sellega, et sulle meeldib front-end xd.",
+        "Mulle meeldib su pere ja su kodukoht. See rahulikkus ja looduslähedus kuusalus oli väga mõnus. Kõik su peres tunduvad väga ratsionaalsed, normaalsed, toredad ja rõõmsameelsed inimesed. ",
+        "Ma austan ka seda, et sa tegelikult oled väga hästi kasvatatud. Muidugi, meie kellegi lapsepõlv ei ole olnud ideaalne ja lilleline. Aga praegu ma julgen öelda, et sa oled hästi üles kasvanud inimene :) aju peas, kahe jalaga maa peal, austav, respekteeriv ja respekteeritav inimene.",
+        "Mulle meeldib, kuidas sa type'id arvutiklaviatuuri peal (ja ka telefoni). See on kuidagi väga spetsiifiline viis ja seda vaadates silm puhkab.",
+        "Mulle meeldib, et sul on kõrgem maitse filmides. Aka, et sa väärtustad hästi tehtud filmi ja hästi kirjutatud tegelasi, mitte mingi marvelit vms.",
+        "Armastan, kuidas sulle meeldib asju foldida :)) riideid ja pleede ja linasid jne. It's really cute. ",
+        "Sa oskad hästi rääkida. Nii sweet talki kui ka argumentatsiooni kui ka lihtsalt igapäevast mõttetut juttu. Sa oskad hästi ennast väljendada, ühesõnaga sa oled hea sõnasepp. ",
+        "Mulle meeldib, kuidas sa särad kogu aeg, kui sa rõõmus oled. Nagu actually hakkad glow'ima (ka ilma selle näokreemita xd). See on väga nakkav ja ekstreemselt nunnu. ",
+        "Mulle meeldib, kui effortlessly sa enamus asju oskad teha. Kõik tuleb nii loomulikult sulle. Ju see on see 'õnne' värk, millest sa rääkinud oled, aga ma ei näe sind kunagi stuggle'imas igapäevaste asjadega. See on nagu väga muljetavaldav ja also suht sexy.",
+        "Ma tunnen end nii hästi ja turvaliselt sinu käte vahel. Iga kord, kohe,kui ma sinu käte vahele saan, tekib kodutunne - ükskõik, kus me oleme. Ma ei ole ca 6-7 aastat end peaaegu mitte kusagil koduselt tundnud, sinu juures ma leidsin selle tunde jälle üle pika-pika aja.",
+        "Sinuga ei saa kunagi jutt otsa. Ma pole mitte kordagi tundnud end awkwardly, kui sinuga räägin. Isegi vaikus ei ole ebamugav, see on actually väääga mugav.  ",
+        "Ma armastan, kui hästi sa saad iga inimesega minu elus läbi. Absoluutselt kõik, kes mulle natukenegi tähtsad on, armastavad sind. Ma teadsin seda kohe, täiesti algusest, see oli üks esimesi esmamuljeid mul sinu kohta: “ta on keegi, kes saaks kõigiga mu elus läbi”. Ja täpselt nii oligi :). ",
+        "You make me feel very confident and feminine and powerful. Mitte tilka pole sinus toksilist maskuliinsust, ainult head maskuliinsust. Mida ma tahtsin öelda on see, et sa oskad suurepäraselt olla suhtes partneriga võrdväärne ning samaaegselt endiselt tajuda, et me mõlemad mõjutame üksteist, anname üksteisele enesekindlust ja kindlust, vahepeal on ühel seda rohkem kui teisel jne. Balanss on sul väga hästi paigas.",
+        "Sinu prioriteedid elus tunduvad väga paigas. Isegi, kui sa ei tea veel täpselt, mida tulevikus teha ja mida see toob, siis siiski sinu fantaasiad tulevikust - praktika, töö, pere, lapsed, kodu, maja, koduloomad, vanadus, reisimine jnejne - on kõik väga sümpaatsed ja tihtipeale ka täpselt see, mida ma ise tahan :). ",
+        "YOU ARE SO CUTEE. Nagu absoluutselt kogu aeg. Sa teed nii nunnusid häälitsusi, sa ütled nii nunnusid asju, sa naeratad nii nunnult, sa lihtsalt oled nii goddamn nunnu, et mine või lõhki. Nagu kuldne retriiver, kes kogu aeg saba liputab :)). ",
+        "Your hands are so fcking hot. Mitte ainult välimuselt, see ka kuidas sa neid liigutad ja käsitled.",
+        "Mulle meeldib kui lihtsalt sa suudad võõrastega sõbruneda. Iga lambine inimene kuskil tanklas, tänaval, festivalil jne sa suudad alati kõigiga läbi saada ja kuidagi endale uued inimesed ümberringi leida.",
+        "Mulle meeldivad su nilbed naljad ja see energia mis sa tood inimestele oma naljadega. It's really amazing. ",
+        "Ma tunnen nagu sa oleksid minu hea sõber. Ma väga väärtustan seda. Mulle nii meeldib, et lisaks sellele, et saan sind kutsuda oma poiss-sõbraks, saan sind kutsuda ka oma sõbraks <3 ",
+        "Mulle meeldib, et sa hoiad väga tegelikult oma sõpru. Sa hoolid nende muredest ja tahad aidata. Sul on küll rohkem aru peas kui mul, et hoida eemale draamadesse täiesti sisse minemisest. Aga siiski seda on näha, et sa oled invested ja muretsed oma sõprade üle. ",
+        "Mulle väga meeldib su stiil. See võibolla on hetkel alles välja arenemise faasis aga juba praegu sul on väga hea silm riietele ja sa vahepeal näed straight up parem välja kui mina xd",
+        "Ma näen sinus väga palju imetlusväärseid iseloomuomadusi. Honestly väga paljud neist viitavad sellele, et sa oleksid hea juht. Sa oled arukas ja suudad kiirelt mõelda lahenduse probleemile. Sa oled empaatiline, kuid samas loogiline - seega sa mõistad inimest, kuid ei karda teda call-out’ida. Sa oskad hästi rääkida ja “müüa”. Sa oled loominguline ja innovaatiline. Asi, millega võiksid veel tegeleda on ilmselt vastutustunne. Kuid see on asi, mida kõige efektiivsemalt õpib tehes midagi, millest sa hoolid ja vastutad samaaegselt.",
+        "Armastan, et sa armastad nii tugevalt. Sa ei võta armastust kergekäeliselt ning austad seda. Sa väärtustad seda. ",
+        "Sa oled väga tubli olnud iseendaga tegelemises. Sa oled astunud samme, mis mõnel võtavad aastaid, et üldse selle peale mõelda. Sa oled kuulanud ja õppinud. See protsess on aeglane ja raske, kuid ma näen, et kui sa julgesid teha algust, siis sa kindlasti julged ka minna edasi. Ükskõik kui kiirelt. ",
+        "Mulle meeldib, et su voice range on lambist räigelt suur. It’s like kinda freaky aga also impressive. Sa ilmselt võiksid koori minna ja saaksid seal päris hästi hakkama. (Ja enne kui sa ütled, et ei blablabla, siis jah, saaksid küll.). ",
+        "Mulle meeldib, et su nimi on Raul. Nagu, see on lambist räigelt eksootiline nimi. Võibolla sa ei näe seda nii aga mulle on see alati olnud. Vb kuna ma ei tea mitte ühtegi teist Rauli ja see on mingi hispaania nimi. Aga see sobib sulle nii hästi. And I love saying it ",
+        "Mulle meeldib, et sulle on hakanud meeldima tüdrukutega koos gossipimine ja tea kuulamine. Nagu obviously piirides, aga siiski sa nagu also sobid väga hästi sinna gossip seltskonda kaasa rääkima hahah",
+        "Mulle väga on meeldinud vaadata, kuidas sa proged. Minu arust sa teed seda nii … loomulikult kuidagi. Ma ise mähin mingi 10x rohkem progedes aga sa teed alati kõike nii sujuvalt ja graatsiliselt. Isegi kui sa mähid. Idk how you do that. ",
+        "Sul on päris hea silm ilu (ja maitse) peale. Mitte ainult stiili mõttes, üleüldiselt on sul minu arust hea tunnetus esteetilisuse ja ‘beauty’ peale. Seda siis kõikides valdkondades. Ma ei ole paljusid kutte näinud, kellel oleks hea ilu tunnetus. Btw esteetika on ka filosoofia ja see on also suht huvitav :D",
+        "I love kui armsalt sa nohised, kui sa magad. It's so adorable",
+        "Mulle väga meeldib, kui väga sa hoiad tegelikult oma pere. Seda on nii selgelt näha. Ja nad hoiavad tegelikult sind ka väga, ka seda on selgelt näha, isegi kui sa vahepeal võibolla ei tunne nii. Nad muretsevad, hoolivad ja tahavad aidata sind alati. Ja sina ka neid <3.",
+        "Sa oled liiga hea word puzzle’ites. See nagu ajab närvi vahepeal (sest ma olen kade…). Üleüldiselt sul on väga hea loogiline mõtlemine ja n.ö 'puslede lahendamise aju'.",
+        "Sa oled väga lihtsasti armastatav. Nagu nii mina kui ka teised satsist ütlevad kogu aeg, et isegi kui nad ei oska kindlat põhjust öelda, siis sa lihtsalt poed nii kiiresti ja lihtsalt teiste südamesse. ",
+        "Sa kõnnid nagu modell. Vb mitte kogu aeg, aga siis kui sa feelid ennast siis sa literally kõnnid nagu modell. ",
+        "Ma armastan, et sa tahad kogu aeg minuga olla. Samamoodi nagu ma ei saa piisavalt sinust, siis tundub nagu sa ei saa ka piisavalt minust. Mulle meeldib, et sa alati eelistaksid olla minuga. See muidugi igas olukorras võibolla ei ole kõige realistlikum või tervislikum, aga see on nii armas ikkagi. Mul on tunne nagu ma ei väsiks sinu seltskonnast kunagi ära ja sina vist minu omast ka <3",
+        "Mulle meeldib, et me saame koos imelikud olla. Et me tahame koos imelikud olla, ja natukene lapsikud, ja natukene cringe’id. ",
+        "Ma armastan, et teised näevad meievahelist armastust. Et seda on näha ja tunnetada ruumis. Mõned lausa on kadedad selle peale ",
+        "Ma tean, et sinu jaoks on praegu ilmselt natukene hirmus see idee, et sa ei tea veel täpselt, milline inimene sa oled ja milliseks inimeseks sa kasvad. Ma näen sinus nii palju head ja nii palju potentsiaali. Ma ei kahtle, et sinust saab kõige paremas mõttes kadestusväärne inimene. Ja ma olen excited sinu üle. Ma loodan ja usun, et üks päev sa näed seda kõike ka ise peeglisse vaadates <3",
+        "Sa oled usaldusväärne. Inimesed julgevad tulla sulle rääkima kõike, ka saladusi. Kaasaarvatud mina :)",
+        "Me oleme tõesti päris sarnased. Mul on vahepeal tunne, et ma käin iseendaga xd. But I really love that me oleme nii sarnased. Me ajud on enamasti samal lainel ja väga lihtne on sinuga samastuda. Muidugi me oleme ka tegelikult väga erinevad. Aga justkui kõik millega ma tahaks sinuga samalt meelt olla, me juba oleme. ",
+        "I love how kinky you are. Nagu reaalselt sa oled kõvasti kinkym kui mina tegelikult hahahah. Ma väga pooldan seda ja ma olen väga excited sinuga igast asju proovima. Ma tean, et ma võin küll olla natukene aeglane mõnede asjadega, aga I really like connecting with you and your body. Also vahepeal on tore kui asjad lähevad veidi nasty’maks ;) Ma tõesti olen kõigeks valmis, seega ära karda mulle asju öelda ja proovida - võibolla mul on vaja veidi aega enne proovimist aga see ei tähenda, et ma vastu oleksin ;)",
+        "Sa oled hea inimene. Süda on sul hea. Sa soovid head, sa tahad endale head. That's why you deserve all the love in the world. ",
+        "Sa oled mega, … mega hea voodis. Nagu ebareaalne. Ma mitte ainult ei oodanud, et see üldse saab nii hea olla, aga et ma ei väsi sellest absoluutselt ära. Mitte ainult sa ei ole hea, sa oled ka avatud mõtlemisega, aktsepteeriv, hooliv ja austav. I feel very lucky to have you! <3 P.S I also love the filming",
+        "SIKE põhjuseid on tegelt rohkem kui 69! \n Sa oled õpetanud mulle väga palju iseenda kohta. Sa oled õpetanud väga palju mulle armastuse ja emotsioonide kohta. Sa oled ikkagi minu esimene, ja ma olen väga tänulik sulle et sa oled olnud nii hooliv, püüdlev, abivalmis, armastav ja nii palju muud. Sa oled aidanud mul aktsepteerida rohkem iseennast, oma pere, oma emotsioone, oma välimus jnejne.. Aitäh sulle <3",
+        "I like the way you text. It's really nagu, clean ja also sarnane mulle. Ma tean, et me kasutame palju emojisid aga nagu sa tavalistes tekstides ei lükka mingi random ass cringe emojisid ja su textimis stiil on väga meeldiv ja humoorikas :) ",
+        "Mulle meeldib, et sa ise vahepeal absoluutselt ei taju sarkasmi aga ise oled räigelt sarkastiline xd",
+        "Your CHEEKYS!!!!! Gyaaaaaaaaaaa!! Suht self explanatory <3",
+        "Mulle meeldib kui weirdly obsessed sa oled minu varvastega. Eriti kuna sa täiesti alguses nagu jälestasid neid xd. It’s cute and funny",
+        "Ma olen väga tänulik, et sa nii palju oled valmis tegema minu jaoks. Ka need väikesed asjad, nagu mulle vee toomine või soojaveekoti tegemine, kui mul on valus. Ma võibolla ei ütle seda piisavalt palju aga ma olen tohutult tohutult tänulik sulle nende väikeste hoolitsuste eest. Aitäh sulle, sa oled tõesti kõige parem poisssõber, keda ma oleks suutnud endale tahta",
+        "",
+        "",
+        ""
+    ];
+
+    let currentReasonIndex = 0;
+    const shownReasons = [];
+
+    function showNextReason() {
+        if (currentReasonIndex < reasons.length) {
+            const reasonText = document.getElementById('reason-text');
+            reasonText.innerHTML = reasons[currentReasonIndex];
+            shownReasons.push(reasons[currentReasonIndex]);
+            currentReasonIndex++;
+        } else {
+            const reasonContainer = document.getElementById('reason-container');
+            reasonContainer.innerHTML = "<h1>Praeguseks kõik! Aga neid põhjuseid on veel lõputult palju <3 </h1>";
+        }
+    }
+
+    function updateCountdown() {
+        const countdown = document.getElementById('countdown');
+        const now = new Date();
+        const next6AM = new Date(now);
+
+        // Set the time to 6 AM of the next day
+        next6AM.setDate(next6AM.getDate() + 1);
+        next6AM.setHours(6, 0, 0, 0);
+
+        const timeDiff = next6AM - now;
+        const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        countdown.innerHTML = `Next reason in ${hours} hours and ${minutes} minutes.`;
+    }
+
+    function showReasonList() {
+        const reasonList = document.getElementById('reason-list');
+        reasonList.innerHTML = "<h3>Eelnevad põhjused:</h3><ul>";
+
+        shownReasons.forEach(reason => {
+            reasonList.innerHTML += `<li>${reason}</li>`;
+        });
+
+        reasonList.innerHTML += "</ul>";
+        reasonList.style.display = 'block';
+    }
+
+    function hideReasonList() {
+        const reasonList = document.getElementById('reason-list');
+        reasonList.style.display = 'none';
+    }
+
+    // Call the functions to initialize the page
+    showNextReason();
+    updateCountdown();
+
+    // Set up a timer to update the countdown every minute
+    setInterval(() => {
+        updateCountdown();
+    }, 60 * 1000); // 1 minute in milliseconds
+
+    // Set up a timer to show a new reason every day at 6 AM
+    setInterval(() => {
+        showNextReason();
+        updateCountdown();
+    }, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
+
+    // Event listeners for the button
+    const showReasonsButton = document.getElementById('show-reasons-button');
+    showReasonsButton.addEventListener('click', () => {
+        if (document.getElementById('reason-list').style.display === 'none') {
+            showReasonList();
+        } else {
+            hideReasonList();
+        }
+    });
+
+    function updateProfileImage() {
+        const profileImage = document.getElementById('profile-image');
+        const currentDay = new Date().getDate();
+        const imagePath = `pildid/${currentDay}.JPEG`; // Assumes images are named 1.jpg, 2.jpg, ..., n.jpg
+        profileImage.src = imagePath;
+    }
+
+</script>
 
 </body>
 </html>
