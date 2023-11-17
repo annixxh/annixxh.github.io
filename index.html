@@ -240,23 +240,40 @@
     let currentReasonIndex = 0;
     let shownReasons = [];
 
-    function showNextReason() {
-        const lastRevealedDate = localStorage.getItem('lastRevealedDate');
-        const currentDate = new Date();
-        currentDate.setHours(0, 0, 0, 0);
 
-        if (!lastRevealedDate || lastRevealedDate !== currentDate.toISOString()) {
-            if (currentReasonIndex < reasonsData.length) {
+    function showNextReason() {
+
+        const now = new Date();
+        const currentDay = now.getDate();
+
+        // Check if the current day's reason has already been revealed
+        const lastRevealedDay = shownReasons.length > 0 ? new Date(shownReasons[shownReasons.length - 1]).getDate() : 0;
+        if (currentReasonIndex < reasons.length) {
+            if (currentDay === lastRevealedDay) {
+                // If the current day's reason is already revealed, show it
                 const reasonText = document.getElementById('reason-text');
-                reasonText.innerHTML = reasonsData[currentReasonIndex].reason;
-                shownReasons.push(reasonsData[currentReasonIndex]);
+                reasonText.innerHTML = reasons[currentReasonIndex];
+                shownReasons.push(reasons[currentReasonIndex]);
                 currentReasonIndex++;
-                localStorage.setItem('lastRevealedDate', currentDate.toISOString());
-            } else {
-                const reasonContainer = document.getElementById('reason-container');
-                reasonContainer.innerHTML = "<h1>All reasons have been revealed!</h1>";
             }
+            if(currentReasonIndex > shownReasons.length()) {
+                const reasonText = document.getElementById('reason-text');
+                reasonText.innerHTML = reasons[shownReasons.length-1];
+            }
+
+            else {
+                // If the current day's reason is not revealed, display the "coming soon" message
+                const reasonText = document.getElementById('reason-text');
+                reasonText.innerHTML = "Põhjus tuleb varsti!";
+            }
+        } else {
+            const reasonContainer = document.getElementById('reason-container');
+            reasonContainer.innerHTML = "<h1>All reasons have been revealed!</h1>";
         }
+
+        // Update the countdown
+        updateCountdown();
+
     }
 
     function updateCountdown() {
@@ -264,9 +281,13 @@
         const now = new Date();
         const next6AM = new Date(now);
 
-        // Set the time to 6 AM of the next day
-        next6AM.setDate(next6AM.getDate() + 1);
-        next6AM.setHours(6, 0, 0, 0);
+        // Set the time to 6 AM of the current day if it's before 6 AM, otherwise set it to 6 AM of the next day
+        if (now.getHours() < 6) {
+            next6AM.setHours(6, 0, 0, 0);
+        } else {
+            next6AM.setDate(next6AM.getDate() + 1);
+            next6AM.setHours(6, 0, 0, 0);
+        }
 
         const timeDiff = next6AM - now;
         const hours = Math.floor(timeDiff / (1000 * 60 * 60));
@@ -305,7 +326,7 @@
     function resetReasonIndex() {
         currentReasonIndex = 0;
         shownReasons.length = 0; // Clear the array of shown reasons
-        showNextReason(); // Show the first reason after resetting
+        //showNextReason(); // Show the first reason after resetting
     }
 
     // Event listeners for the button
@@ -345,6 +366,20 @@
         const next6AM = new Date(currentDate);
         next6AM.setHours(6, 0, 0, 0);
 
+        const day = currentDate.getDate();
+        const month = currentDate.getMonth() + 1; // Months are zero-based
+        const year = currentDate.getFullYear();
+        const formattedDate = `${padZero(day)}.${padZero(month)}.${year}`;
+
+        if (formattedDate === '17.11.2023') {
+            resetReasonIndex();
+            const reasonText = document.getElementById('reason-text');
+            reasonText.innerHTML = reasons[currentReasonIndex];
+            shownReasons.push(reasons[currentReasonIndex]);
+            currentReasonIndex++;
+
+        }
+
         // If it's already past 6 AM today, set the timer for 6 AM tomorrow
         if (currentDate > next6AM) {
             next6AM.setDate(next6AM.getDate() + 1);
@@ -352,17 +387,11 @@
 
         const timeDiff = next6AM - currentDate;
 
-        // Set up a timer to reveal the first reason at 6 AM
+        // Set up a timer to reveal the reason at 6 AM
         setTimeout(() => {
             showNextReason();
             updateCountdown();
         }, timeDiff);
-
-        // If the first reason is not revealed yet, display a message
-        if (currentDate < next6AM) {
-            const reasonText = document.getElementById('reason-text');
-            reasonText.innerHTML = "The first reason is coming soon!";
-        }
 
         // Set up a timer to update the countdown every minute
         setInterval(() => {
