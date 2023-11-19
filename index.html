@@ -67,6 +67,10 @@
             border-radius: 8px;
         }
 
+        #debug-text {
+            font-size: 20px;
+        }
+
         #countdown {
             font-size: 15px;
             color: #777;
@@ -145,6 +149,7 @@
     <h1>69 REASONS &lt;3</h1>
     <img id="image" src="/pildid/1.JPG" alt="Image">
     <p><span id="current-date"></span></p>
+    <div id="debug-text"></div>
     <h3>Tänane põhjus: </h3>
     <div id="reason-text" style="display: none"></div>
     <button id="reveal-button" onclick="revealReason()"></button>
@@ -154,7 +159,6 @@
 </div>
 
 <script>
-    // Replace this array with your list of reasons
     const reasons = [
         "Mulle meeldib, et sa oled nii avatud. Sa oled avatud uutele mõtetele, tegevustele, teistsugustele inimestele ja arvamustele. ",
         "Sinuga ei pea kunagi kartma, kui teen midagi imelikku või teistmoodi. Ma tean, et you always have my back and won't judge.",
@@ -236,44 +240,37 @@
         "",
         ""
     ];
-
     let currentReasonIndex = 0;
     let shownReasons = [];
 
+    let lastRevealed = 0;
+    let kasTananeEsitatud = false;
 
     function showNextReason() {
 
-        const now = new Date();
-        const currentDay = now.getDate();
+        const debugText = document.getElementById('debug-text');
+        debugText.innerHTML = currentReasonIndex.toString();
 
-        // Check if the current day's reason has already been revealed
-        const lastRevealedDay = shownReasons.length > 0 ? new Date(shownReasons[shownReasons.length - 1]).getDate() : 0;
-        if (currentReasonIndex < reasons.length) {
-            if (currentDay === lastRevealedDay) {
-                // If the current day's reason is already revealed, show it
+        if (currentReasonIndex < reasons.length) { //there are more reasons to be revealed
+
+            if (!kasTananeEsitatud) { //tanane pole veel esitatud, seega esitame selle
                 const reasonText = document.getElementById('reason-text');
                 reasonText.innerHTML = reasons[currentReasonIndex];
                 shownReasons.push(reasons[currentReasonIndex]);
                 currentReasonIndex++;
+                kasTananeEsitatud = true;
             }
-            if(currentReasonIndex > shownReasons.length()) {
-                const reasonText = document.getElementById('reason-text');
-                reasonText.innerHTML = reasons[shownReasons.length-1];
-            }
-
-            else {
-                // If the current day's reason is not revealed, display the "coming soon" message
+            else { // If the current day's reason is not revealed, display the "coming soon" message
                 const reasonText = document.getElementById('reason-text');
                 reasonText.innerHTML = "Põhjus tuleb varsti!";
             }
+
         } else {
             const reasonContainer = document.getElementById('reason-container');
             reasonContainer.innerHTML = "<h1>All reasons have been revealed!</h1>";
-        }
+        } //there are no more reasons
 
-        // Update the countdown
         updateCountdown();
-
     }
 
     function updateCountdown() {
@@ -317,10 +314,7 @@
         const revealButton = document.getElementById('reveal-button');
         reasonText.style.display = 'block';
         revealButton.style.display = 'none';
-        currentReasonIndex++;
-        showNextReason();
         updateCountdown();
-        updateProfileImage();
     }
 
     function resetReasonIndex() {
@@ -371,13 +365,14 @@
         const year = currentDate.getFullYear();
         const formattedDate = `${padZero(day)}.${padZero(month)}.${year}`;
 
-        if (formattedDate === '17.11.2023') {
+        if (formattedDate === '19.11.2023') {
             resetReasonIndex();
             const reasonText = document.getElementById('reason-text');
+            shownReasons.push(reasons[currentReasonIndex]);
+            currentReasonIndex++;
             reasonText.innerHTML = reasons[currentReasonIndex];
             shownReasons.push(reasons[currentReasonIndex]);
             currentReasonIndex++;
-
         }
 
         // If it's already past 6 AM today, set the timer for 6 AM tomorrow
@@ -398,11 +393,11 @@
             updateCountdown();
         }, 60 * 1000); // 1 minute in milliseconds
 
-        // Set up a timer to show a new reason every day at 6 AM
+       /* // Set up a timer to show a new reason every day at 6 AM
         setInterval(() => {
             showNextReason();
             updateCountdown();
-        }, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
+        }, 24 * 60 * 60 * 1000); // 24 hours in milliseconds*/
 
         // Set up a timer to update the current date every minute
         setInterval(() => {
