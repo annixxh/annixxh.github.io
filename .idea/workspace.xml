@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d1c3cd9-2fc3-4b07-b425-6225dfa44e6a" name="Changes" comment="someMorefixes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4d1c3cd9-2fc3-4b07-b425-6225dfa44e6a" name="Changes" comment="someMOREfixes">
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +63,7 @@
       <option name="presentableId" value="Default" />
       <updated>1700155456676</updated>
       <workItem from="1700155458838" duration="12790000" />
-      <workItem from="1700418874637" duration="5838000" />
+      <workItem from="1700418874637" duration="6766000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1700158227052</created>
@@ -115,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1700421019518</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="someMOREfixes">
+      <created>1700437070881</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1700437070881</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,6 +146,7 @@
     <MESSAGE value="peaks valmis olema loodame hommikuni" />
     <MESSAGE value="somefixes" />
     <MESSAGE value="someMorefixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="someMorefixes" />
+    <MESSAGE value="someMOREfixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="someMOREfixes" />
   </component>
 </project>

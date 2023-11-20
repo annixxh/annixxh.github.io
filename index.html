@@ -243,19 +243,24 @@
     let shownReasons = [];
     shownReasons.push(reasons[0])
     shownReasons.push(reasons[1])
+    shownReasons.push(reasons[2])
 
     function updateReason() {
         const currentDate = new Date();
         const currentHour = currentDate.getHours();
         const reasonText = document.getElementById('reason-text');
+        let praegune = "";
 
         if (currentReasonIndex < reasons.length) { //there are more reasons to be revealed
             if (currentHour === 6 && currentHour < 7) {
+                praegune = reasons[currentReasonIndex];
                 reasonText.innerHTML = reasons[currentReasonIndex];
                 shownReasons.push(reasons[currentReasonIndex]);
                 currentReasonIndex++;
-            } //esitame tanase kella 6se
-            else reasonText.innerHTML = "Põhjus tuleb varsti!"; // tanane pole veel esitatud, tuleb varsti
+            }
+            else {
+                reasonText.innerHTML = reasons[currentReasonIndex];
+            }
         } else {
             const reasonContainer = document.getElementById('reason-container');
             reasonContainer.innerHTML = "<h1>All reasons have been revealed!</h1>";
