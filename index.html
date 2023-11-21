@@ -253,10 +253,9 @@
 
         if (currentReasonIndex < reasons.length) { //there are more reasons to be revealed
             if (currentHour === 6 && currentHour < 7) {
-                praegune = reasons[currentReasonIndex];
+                currentReasonIndex++;
                 reasonText.innerHTML = reasons[currentReasonIndex];
                 shownReasons.push(reasons[currentReasonIndex]);
-                currentReasonIndex++;
             }
             else {
                 reasonText.innerHTML = reasons[currentReasonIndex];
