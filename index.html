@@ -235,35 +235,62 @@
         "Your CHEEKYS!!!!! Gyaaaaaaaaaaa!! Suht self explanatory <3",
         "Mulle meeldib kui weirdly obsessed sa oled minu varvastega. Eriti kuna sa täiesti alguses nagu jälestasid neid xd. It’s cute and funny",
         "Ma olen väga tänulik, et sa nii palju oled valmis tegema minu jaoks. Ka need väikesed asjad, nagu mulle vee toomine või soojaveekoti tegemine, kui mul on valus. Ma võibolla ei ütle seda piisavalt palju aga ma olen tohutult tohutult tänulik sulle nende väikeste hoolitsuste eest. Aitäh sulle, sa oled tõesti kõige parem poisssõber, keda ma oleks suutnud endale tahta",
-        "",
-        "",
-        ""
     ];
-    let currentReasonIndex = 2;
     let shownReasons = [];
+
+    /*let currentReasonIndex = 2;
+    muudetud = false
     shownReasons.push(reasons[0])
     shownReasons.push(reasons[1])
-    shownReasons.push(reasons[2])
+    shownReasons.push(reasons[2])*/
+
+    function formatDate(date) {
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+        const year = date.getFullYear();
+        return `${day}.${month}.${year}`;
+    }
+
+    const startDate = new Date('11/18/2023');
+
+    function createMap(map) {
+        for (let i = 0; i < 76; i++) {
+            const currentDate = new Date(startDate);
+            currentDate.setDate(startDate.getDate() + i);
+            const formattedDate = formatDate(currentDate);
+            map[formattedDate] = i;
+        }
+        return map;
+    }
+    const dateIndexMap = createMap({});
+
+    function lisaEelnevad() {
+        const currentDate = new Date();
+        const formattedDate = formatDate(currentDate);
+        const i = dateIndexMap[formattedDate]
+        for (let j = 0; j <= i; j++) {
+            shownReasons.push(reasons[j]);
+        }
+    }
 
     function updateReason() {
         const currentDate = new Date();
         const currentHour = currentDate.getHours();
-        const reasonText = document.getElementById('reason-text');
-        let praegune = "";
+        const formattedDate = formatDate(currentDate);
+        const currentReasonIndex = dateIndexMap[formattedDate]
 
-        if (currentReasonIndex < reasons.length) { //there are more reasons to be revealed
-            if (currentHour === 6 && currentHour < 7) {
-                currentReasonIndex++;
-                reasonText.innerHTML = reasons[currentReasonIndex];
-                shownReasons.push(reasons[currentReasonIndex]);
-            }
-            else {
-                reasonText.innerHTML = reasons[currentReasonIndex];
-            }
-        } else {
-            const reasonContainer = document.getElementById('reason-container');
-            reasonContainer.innerHTML = "<h1>All reasons have been revealed!</h1>";
-        } //there are no more reasons
+        const reasonText = document.getElementById('reason-text');
+
+        if (currentHour === 6 && currentHour < 7) {
+             reasonText.innerHTML = reasons[currentReasonIndex];
+             shownReasons.push(reasons[currentReasonIndex]);
+        }
+        else if (currentHour < 6 && currentHour > 0) {
+             reasonText.innerHTML = reasons[currentReasonIndex-1];
+        }
+        else {
+            reasonText.innerHTML = reasons[currentReasonIndex];
+        }
 
         updateCountdown();
     }
@@ -305,17 +332,12 @@
     }
 
     function revealReason() {
+        updateReason();
         const reasonText = document.getElementById('reason-text');
         const revealButton = document.getElementById('reveal-button');
         reasonText.style.display = 'block';
         revealButton.style.display = 'none';
         updateCountdown();
-    }
-
-    function resetReasonIndex() {
-        currentReasonIndex = 0;
-        shownReasons.length = 0; // Clear the array of shown reasons
-        //showNextReason(); // Show the first reason after resetting
     }
 
     // Event listeners for the button
@@ -342,8 +364,7 @@
         const month = currentDate.getMonth() + 1; // Months are zero-based
         const year = currentDate.getFullYear();
 
-        const formattedDate = `${padZero(day)}.${padZero(month)}.${year}`;
-        currentDateElement.textContent = formattedDate;
+        currentDateElement.textContent = `${padZero(day)}.${padZero(month)}.${year}`;
     }
 
     function padZero(number) {
@@ -366,9 +387,12 @@
     }, 60 * 60 * 1000)
 
     // Call the function to initialize the page
+    lisaEelnevad();
+
     updateCountdown();
     updateCurrentDate();
     updateReason();
+
 
 </script>
 
